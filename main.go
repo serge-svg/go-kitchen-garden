@@ -6,13 +6,14 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	_ "fyne.io/fyne/v2/widget"
+	_"fyne.io/fyne/v2/widget"
 )
 
 type Config struct {
 	App      fyne.App
 	InfoLog  *log.Logger
 	ErrorLog *log.Logger
+	MainWindow fyne.Window // reference to main screen
 }
 
 var appConfig Config
@@ -32,9 +33,17 @@ func main() {
 	// Create a db repository
 
 	// Create and define size of the fyne screen
-	win := fyneApp.NewWindow("Eco ktchen-garden App")
+	appConfig.MainWindow = fyneApp.NewWindow("Eco ktchen-garden App")
+	appConfig.MainWindow.Resize(fyne.NewSize(800, 500))
+	appConfig.MainWindow.SetFixedSize(true)
+	appConfig.MainWindow.SetMaster()
+
+	appConfig.makeUI() //
+
 	// Show and execute fyne app
-	win.ShowAndRun()
+	appConfig.MainWindow.ShowAndRun()
+
+
 	/*
 		a := app.New()
 		w := a.NewWindow("Hi you")
