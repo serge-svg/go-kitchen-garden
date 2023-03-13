@@ -89,7 +89,10 @@ type Prediccion struct {
 
 func main() {
 	result, _ := GetPreUrl()
-	fmt.Println(result)
+	values, _ := GetPrediction()
+	for value := range values {
+		fmt.Println("Parameter: ", values[value])
+	}
 
 }
 
@@ -118,4 +121,8 @@ func GetPreUrl() (string, error) {
 	}
 
 	return preUrl.Url, error
+}
+
+func GetPrediction() {
+
 }
