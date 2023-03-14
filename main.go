@@ -2,18 +2,22 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	_"fyne.io/fyne/v2/widget"
+	_ "fyne.io/fyne/v2/widget"
 )
 
 type Config struct {
-	App      fyne.App
-	InfoLog  *log.Logger
-	ErrorLog *log.Logger
-	MainWindow fyne.Window // reference to main screen
+	App                      fyne.App
+	InfoLog                  *log.Logger
+	ErrorLog                 *log.Logger
+	MainWindow               fyne.Window // reference to main screen
+	ClimateDataContainer     *fyne.Container
+	HTTPClient               http.Client
+	ForecastGraphicContainer *fyne.Container
 }
 
 var appConfig Config
@@ -34,7 +38,7 @@ func main() {
 
 	// Create and define size of the fyne screen
 	appConfig.MainWindow = fyneApp.NewWindow("Eco ktchen-garden App")
-	appConfig.MainWindow.Resize(fyne.NewSize(800, 500))
+	appConfig.MainWindow.Resize(fyne.NewSize(800, 600))
 	appConfig.MainWindow.SetFixedSize(true)
 	appConfig.MainWindow.SetMaster()
 
@@ -42,14 +46,6 @@ func main() {
 
 	// Show and execute fyne app
 	appConfig.MainWindow.ShowAndRun()
-
-
-	/*
-		a := app.New()
-		w := a.NewWindow("Hi you")
-		w.SetContent(widget.NewLabel("Hi you"))
-		w.ShowAndRun()
-	*/
 
 	// go mod tidy // force update dependencies
 }
